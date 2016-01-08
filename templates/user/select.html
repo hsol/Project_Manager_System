@@ -1,0 +1,41 @@
+<div class="aside">
+    <div class="search">
+        <select name="sType">
+            <option value="">전체</option>
+            <option value="id">아이디</option>
+            <option value="name">이름</option>
+        </select><input type="text" placeholder="검색어" name="sString"><input type="button" value="검색" id="userSearch"
+                                                                            class="button">
+    </div>
+    <ul class="selected">
+    </ul>
+</div>
+<div class="article">
+    <table>
+        <thead>
+        <caption>유저 목록</caption>
+        <tr>
+            <th>번호</th>
+            <th>아이디</th>
+            <th>이름</th>
+            <th>파트</th>
+        </tr>
+        </thead>
+        <tbody id="userList">
+        <tr class="template" data-idx="{idx}">
+            <td>{page_idx}</td>
+            <td>{id}</td>
+            <td>{name}</td>
+            <td>{part}</td>
+        </tr>
+        </tbody>
+        <tfoot class="moreUser">
+        <tr>
+            <td colspan="4">더보기</td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="submit">
+    <input type="button" value="입력" class="button">
+</div>

@@ -1,0 +1,171 @@
+#article{
+    position:relative;
+}
+#article #issueForm table{
+    width:100%;
+
+    margin-top:1em;
+    border:1px solid #ccc;
+    border-collapse: collapse;
+}
+
+#article #issueForm input[type=text],
+#article #issueForm textarea{
+    border:1px solid #d5d5d5;
+}
+#article #issueForm input[type=text]{
+    height:25px;
+    line-height:25px;
+    padding:5px;
+}
+
+#article #issueForm .perfection th{
+    position:relative;
+}
+#article #issueForm .perfection .percent{
+    background-color:#2ecc71;
+    position:absolute;
+    height:18px;
+    z-index:0;
+    transition-duration:0.3s;
+}
+#article #issueForm .perfection span{
+    position:relative;
+    z-index:1;
+}
+
+#article #issueForm .data th{
+    vertical-align: top;
+    width:20%;
+}
+#article #issueForm .data th,
+#article #issueForm .data td{
+    vertical-align: top;
+    padding:5px;
+    border:1px solid #f5f5f5;
+    border-top:0;
+    border-left:0;
+    border-right:0;
+}
+#article #issueForm .data td.name {padding-right:20px;}
+#article #issueForm .data td.name input[type=text]{width:100%;}
+
+#article #issueForm #users{
+    padding-right:20px;
+}
+#article #issueForm #users input[type=button]{
+    height:30px;
+    line-height:30px;
+}
+#article #issueForm #users .selected{
+    list-style:none;
+    margin-top:5px;
+
+    width:100%;
+    min-height:30px;
+    padding:5px;
+
+    border:1px solid #d5d5d5;
+}
+
+#article #issueForm #users .selected li{
+    margin:5px;
+    display:inline-block;
+    list-style:none;
+    background-color:#2f2f30;
+    color:#ffffff;
+    padding:5px 10px 5px 10px;
+
+    height:25px;
+}
+#article #issueForm #users .selected li span.delete{
+    display:inline-block;
+    width:14px;
+    height:14px;
+    background: url('/resources/images/ic_delete_white.png') no-repeat center center;
+    text-align:center;
+}
+#article #issueForm #users .selected li span.delete:hover{
+    cursor:pointer;
+}
+#article #issueForm #users .selected li span.name{
+    display:inline-block;
+}
+
+#article #issueForm #files{
+    padding-right:20px;
+}
+#article #issueForm #files .form{
+    position:relative;
+    padding:5px;
+    min-height:30px;
+    border:1px solid #ccc;
+    border-bottom:0;
+}
+#article #issueForm #files input[type=file]{
+    width:100%;
+    vertical-align:middle;
+}
+#article #issueForm #files .uploadFile{
+    position:absolute;
+    top:1px;
+    right:1px;
+    height:30px;
+    line-height:30px;
+    vertical-align:middle;
+    border:0;
+}
+#article #issueForm #files ul{
+    list-style:none;
+
+    width:100%;
+    min-height:30px;
+
+    border:1px solid #ccc;
+    border-top:0;
+}
+
+#article #issueForm #files ul li{
+    list-style:none;
+    background-color:#ffffff;
+    padding:5px;
+}
+#article #issueForm #files ul li:hover{
+    background-color:#f5f5f5;
+}
+#article #issueForm #files ul li a.name{
+    vertical-align: top;
+}
+#article #issueForm #files ul li span.delete{
+    display:inline-block;
+    vertical-align: top;
+    margin-right:10px;
+    width:20px;
+    height:20px;
+    background-image:url('/resources/images/ic_delete.png');
+    background-repeat:no-repeat;
+    background-position:center center;
+    text-align:center;
+    border:1px solid #d5d5d5;
+}
+#article #issueForm #files ul li span.delete:hover{
+    cursor:pointer;
+    background-color:#f5f5f5;
+    border-color:#ccc;
+}
+
+#article #issueForm .description{
+    padding-top:10px;
+    padding-left:20px;
+    padding-right:20px;
+    padding-bottom:10px;
+    text-align:left;
+}
+#article #issueForm .description textarea{
+    width:100%;
+    min-height:5em;
+    padding:5px;
+    resize:vertical;
+}
+
+

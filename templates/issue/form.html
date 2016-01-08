@@ -1,0 +1,76 @@
+<div id="caption" class="hidden">이슈 목록</div>
+<div id="article">
+    <div id="issueForm" >
+        <h1>{pageTitle}</h1>
+        <table class="templates">
+            <tbody>
+            <tr class="perfection">
+                <th colspan="4">
+                    <div class="percent" style="width:{perfection}%"></div>
+                    <span>{perfection}%</span>
+                </th>
+            </tr>
+            <tr>
+                <td colspan="4">　</td>
+            </tr>
+            <tr class="data">
+                <th>프로젝트:</th>
+                <td class="projectName">{projectName}</td>
+                <th>담당</th>
+                <td><select name="part" class="part"></select></td>
+            </tr>
+            <tr class="data">
+                <th>제목:</th>
+                <td class="name" colspan="3">
+                    <input type="text" name="title" placeholder="이슈 제목" value="{title}">
+                </td>
+            </tr>
+            <tr class="data">
+                <th>목표일:</th>
+                <td class="targetDate" id="dateSelect" colspan="3">
+                    <select name="targetYear" class="year"></select>년
+                    <select name="targetMonth" class="month"></select>월
+                    <select name="targetDay" class="day"></select>일
+                </td>
+            </tr>
+            <tr class="data">
+                <th>첨부파일:</th>
+                <td colspan="3" id="files">
+                    <div class="form"><input type="file"><input type="button" class="uploadFile button" value="업로드"></div>
+                    <ul></ul>
+                </td>
+            </tr>
+            <tr class="data">
+                <th>상태:</th>
+                <td><select name="state" class="state"></select></td>
+                <td>
+                    <label for="isEnabled">노출:</label>
+                    <input type="checkbox" name="isEnabled" id="isEnabled" value="1" {isEnabled}>
+                </td>
+                <td>
+                    <label for="isEnded">완료:</label>
+                    <input type="checkbox" name="isEnded" id="isEnded" value="1" {isEnded}>
+                </td>
+            </tr>
+            <tr class="data">
+                <th>인원:</th>
+                <td id="users" colspan="3">
+                    <input type="button" value="추가" class="button addUser">
+                    <ul class="selected"></ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="description" colspan="4">
+                    <textarea name="contents">{contents}</textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="wrap">
+            <div class="panel_button">
+                <input type="button" id="goEdit" class="button" value="{text_editButton}">
+                <input type="button" id="goBack" class="button" value="뒤로">
+            </div>
+        </div>
+    </div>
+</div>

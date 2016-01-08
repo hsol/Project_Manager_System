@@ -1,0 +1,62 @@
+<div id="caption" class="hidden">이슈 목록</div>
+<div id="article">
+    <div id="issueView" >
+        <h1 class="template">{title}</h1>
+        <table class="template">
+            <tbody>
+            <tr class="perfection">
+                <th colspan="4">
+                    <div class="percent" style="width:{perfection}%"></div>
+                    <span>{perfection}%</span>
+                </th>
+            </tr>
+            <tr class="data">
+                <th>상태:</th>
+                <td class="state">{stateName}</td>
+                <th>목표일:</th>
+                <td class="targetDate">{targetDate}</td>
+            </tr>
+            <tr class="data">
+                <th>생성일:</th>
+                <td class="created">{created}</td>
+                <th>만든이:</th>
+                <td class="createName">{createName}</td>
+            </tr>
+            <tr class="data">
+                <th>인원:</th>
+                <td id="issue_users" colspan="3">
+                    <ul class="selected"></ul>
+                </td>
+            </tr>
+            <tr class="data file">
+                <th>첨부파일:</th>
+                <td colspan="3" id="files">
+                    <ul></ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="description" colspan="4">{contents}</td>
+            </tr>
+            <tr>
+                <td colspan="4" id="replyList">
+                    <table class="insertReply">
+                        <tr>
+                            <td class="contents"><input type="text" name="contents" placeholder="댓글 내용"></td>
+                            <td class="input"><input type="button" class="button" value="입력"></td>
+                        </tr>
+                    </table>
+                    <ul></ul>
+                    <div class="moreReply">더보기</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="wrap">
+            <div class="panel_button">
+                <input type="button" id="doDelete" class="button" value="삭제">
+                <input type="button" id="doEdit" class="button" value="수정">
+                <input type="button" id="goList" class="button" value="목록">
+            </div>
+        </div>
+    </div>
+</div>

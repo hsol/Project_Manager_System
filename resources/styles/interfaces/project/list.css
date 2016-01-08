@@ -1,0 +1,78 @@
+#article{
+    height:100%;
+}
+
+#article #projectList{
+    position:relative;
+}
+
+#article #projectList .summary{
+    border-collapse: collapse;
+    margin-top:1em;
+    border:1px solid #ccc;
+    width:100%;
+}
+#article #projectList .summary .all{
+    background-color:#f5f5f5;
+}
+#article #projectList .summary th,
+#article #projectList .summary td{
+    padding:5px;
+}
+
+#article #projectList .projects{
+    list-style:none;
+    width:100%;
+}
+
+#article #projectList .projects .project{
+    border:1px solid #ccc;
+    margin-top:1em;
+}
+#article #projectList .projects .project:hover{
+    background-color:#f4f4f4;
+}
+#article #projectList .projects .project:hover .perfection span{ font-weight: bold }
+
+#article #projectList .projects .project .perfection{
+    position:relative;
+    text-align:center;
+}
+#article #projectList .projects .project .perfection .percent{
+    display:block;
+    position:absolute;
+    background-color:#2ecc71;
+    height:18px;
+    text-align:center;
+    z-index:0;
+    transition-duration:0.3s;
+
+    top:0;
+    left:0;
+}
+#article #projectList .projects .project .perfection span{
+    position:relative;
+    vertical-align:top;
+
+    z-index:1;
+}
+#article #projectList .projects .project table.data{
+    width:100%;
+}
+#article #projectList .projects .project table.data td{
+    text-align:center;
+    padding:3px;
+}
+#article #projectList .projects .project table.data td.state{ width:10%; }
+#article #projectList .projects .project table.data td.name{ width:45%; }
+#article #projectList .projects .project table.data td.created{ width:15%; }
+#article #projectList .projects .project table.data td.createName{ width:15%; }
+#article #projectList .projects .project table.data td.targetDate{ width:15%; }
+
+@media only screen and (max-width: 500px) {
+    #article #projectList .projects .project table.data td.state{ width:5%; }
+    #article #projectList .projects .project table.data td.name{ width:30%; }
+    #article #projectList .projects .project table.data td.created{ width:25%; }
+    #article #projectList .projects .project table.data td.createName{ width:15%; }
+    #article #projectList .projects .project table.data td.targetDate{ width:25%; }
+}

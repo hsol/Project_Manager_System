@@ -1,0 +1,168 @@
+#article{
+    position:relative;
+}
+#article #projectForm table{
+    width:100%;
+
+    margin-top:1em;
+    border:1px solid #ccc;
+    border-collapse: collapse;
+}
+#article #projectForm input[type=text],
+#article #projectForm textarea{
+    border:1px solid #d5d5d5;
+}
+#article #projectForm input[type=text]{
+    height:25px;
+    line-height:25px;
+    padding:5px;
+}
+
+#article #projectForm .perfection th{
+    position:relative;
+}
+#article #projectForm .perfection .percent{
+    background-color:#2ecc71;
+    position:absolute;
+    height:18px;
+    z-index:0;
+    transition-duration:0.3s;
+}
+#article #projectForm .perfection span{
+    position:relative;
+    z-index:1;
+}
+#article #projectForm .data th{
+    vertical-align: top;
+    width:20%;
+}
+#article #projectForm .data th,
+#article #projectForm .data td{
+    padding:5px;
+    border:1px solid #f5f5f5;
+    border-top:0;
+    border-left:0;
+    border-right:0;
+}
+#article #projectForm .data td.name {padding-right:20px;}
+#article #projectForm .data td.name input[type=text]{width:100%;}
+
+#article #projectForm #users{
+    padding-right:20px;
+}
+#article #projectForm #users input[type=button]{
+    height:30px;
+    line-height:30px;
+}
+#article #projectForm #users .selected{
+    list-style:none;
+    margin-top:5px;
+
+    width:100%;
+    min-height:30px;
+    padding:5px;
+
+    border:1px solid #ccc;
+}
+
+#article #projectForm #users .selected li{
+    margin:5px;
+    display:inline-block;
+    list-style:none;
+    background-color:#2f2f30;
+    color:#ffffff;
+    padding:0px 10px 5px 5px;
+
+    position:relative;
+}
+#article #projectForm #users .selected li span{ vertical-align: middle;}
+#article #projectForm #users .selected li span.delete{
+    display:inline-block;
+    width:14px;
+    height:14px;
+    background: url('/resources/images/ic_delete_white.png') no-repeat center center;
+    text-align:center;
+}
+#article #projectForm #users .selected li span.delete:hover{
+    cursor:pointer;
+}
+#article #projectForm #users .selected li span.name{
+    display:inline-block;
+}
+
+#article #projectForm #files{
+    padding-right:20px;
+}
+#article #projectForm #files .form{
+    position:relative;
+    padding:5px;
+    min-height:30px;
+    border:1px solid #ccc;
+    border-bottom:0;
+}
+#article #projectForm #files input[type=file]{
+    width:100%;
+    vertical-align:middle;
+}
+#article #projectForm #files .uploadFile{
+    position:absolute;
+    top:1px;
+    right:1px;
+    height:30px;
+    line-height:30px;
+    vertical-align:middle;
+    border:0;
+}
+#article #projectForm #files ul{
+    list-style:none;
+
+    width:100%;
+    min-height:30px;
+
+    border:1px solid #ccc;
+    border-top:0;
+}
+
+#article #projectForm #files ul li{
+    list-style:none;
+    background-color:#ffffff;
+    padding:5px;
+}
+#article #projectForm #files ul li:hover{
+    background-color:#f5f5f5;
+}
+#article #projectForm #files ul li a.name{
+    vertical-align: top;
+}
+#article #projectForm #files ul li span.delete{
+    display:inline-block;
+    vertical-align: top;
+    margin-right:10px;
+    width:20px;
+    height:20px;
+    background-image:url('/resources/images/ic_delete.png');
+    background-repeat:no-repeat;
+    background-position:center center;
+    text-align:center;
+    border:1px solid #d5d5d5;
+}
+#article #projectForm #files ul li span.delete:hover{
+    cursor:pointer;
+    background-color:#f5f5f5;
+    border-color:#ccc;
+}
+
+#article #projectForm .description{
+    padding-top:10px;
+    padding-left:20px;
+    padding-right:20px;
+    padding-bottom:10px;
+    text-align:left;
+}
+#article #projectForm .description textarea{
+    padding:5px;
+    width:100%;
+    min-height:5em;
+}
+
+

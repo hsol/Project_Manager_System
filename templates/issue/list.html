@@ -1,0 +1,50 @@
+<div id="caption" class="hidden">이슈 목록</div>
+
+<div id="article">
+    <div id="issueList" >
+        <h1>이슈 목록</h1>
+        <table class="summary">
+            <tbody class="template">
+            <tr class="all">
+                <td></td>
+                <th colspan="2"><a href="/project/view.asp?idx={projectIdx}">{projectName}</a></th>
+                <td colspan="2">{total}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>완료:</th>
+                <td>{completed}</td>
+                <th>진행중:</th>
+                <td>{progress}</td>
+                <th>중단:</th>
+                <td>{terminated}</td>
+            </tr>
+            </tbody>
+        </table>
+        <ul class="issues">
+            <li class="issue {isended} template">
+                <a href="/issue/view.asp?page={page}{orderBy}&idx={idx}&project={project}">
+                    <div class="perfection">
+                        <div class="percent" style="width:{perfection}%"></div>
+                        <span>{perfection}%</span>
+                    </div>
+                    <table class="data">
+                        <tr>
+                            <td class="state">{state}</td>
+                            <td class="title">{title}</td>
+                            <td class="created">{created}</td>
+                            <td class="createName">{createName}</td>
+                            <td class="targetDate">{targetDate}</td>
+                        </tr>
+                    </table>
+                </a>
+            </li>
+        </ul>
+        <div class="wrap">
+            <div class="panel_button">
+                <input type="button" id="doEdit" class="button" value="등록">
+            </div>
+        </div>
+        <div class="pagination"></div>
+    </div>
+</div>
