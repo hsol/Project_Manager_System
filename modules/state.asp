@@ -2,7 +2,7 @@
 <% ROLE = "user" %>
 <!-- #include virtual="/modules/module_permission.asp"  -->
 <%
-	on error resume Next
+	'on error resume Next
 	ROLE = textFilter(Request("role"))
 	
 	Dim param
@@ -43,10 +43,10 @@
 			stateList.data.Add "list", stateList.Collection()
 			Do Until rs.EOF
 				Set row = stateList.AddToCollection(stateList.data("list"))
-				row.add "idx", CStr(rs("idx"))
-				row.add "name", CStr(rs("name"))
-				row.add "description", CStr(rs("description"))
-				row.add "perfection", CStr(rs("perfection"))
+				row.add "idx", CStrN(rs("idx"))
+				row.add "name", CStrN(rs("name"))
+				row.add "description", CStrN(rs("description"))
+				row.add "perfection", CStrN(rs("perfection"))
 				rs.movenext()
 			Loop
 			Response.Write stateList.JSONoutput()

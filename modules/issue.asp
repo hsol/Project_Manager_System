@@ -1,11 +1,11 @@
 <!-- #include virtual="/modules/Common.asp"  -->
 <%
-	'on error resume Next
+	on error resume Next
 	ROLE = textFilter(Request("role"))
 
 	Dim param
 	
-	If ROLE = "getIssueList" Then
+	If ROLE = "getIssues" Then
 		project = textFilter(Request("project"))
 		PAGE = textFilter(Request("PAGE"))
 		RFP = textFilter(Request("RFP"))
@@ -13,36 +13,38 @@
 		sString = textFilter(Request("sString"))
 		sType = textFilter(Request("sType"))
 
-        ReDim param(5)
-		param(0) = DBHelper.MakeParam("@project", adVarChar, adParamInput, 10, project)
+        ReDim param(6)
+		param(0) = DBHelper.MakeParam("@project", adInteger, adParamInput, -1, project)
 		param(1) = DBHelper.MakeParam("@PAGE", adInteger, adParamInput, -1, PAGE)
 		param(2) = DBHelper.MakeParam("@RFP", adInteger, adParamInput, -1, RFP)
 		param(3) = DBHelper.MakeParam("@orderBy", adVarChar, adParamInput, 10, orderBy)
 		param(4) = DBHelper.MakeParam("@sString", adVarChar, adParamInput, 100, sString)
 		param(5) = DBHelper.MakeParam("@sType", adVarChar, adParamInput, 50, sType)
+		param(6) = DBHelper.MakeParam("@userId", adVarChar, adParamInput, 50, User.data("userId"))
 
-		Set rs = DBHelper.ExecSPReturnRS("getIssueList", param, Nothing)
+		Set rs = DBHelper.ExecSPReturnRS("getIssues", param, Nothing)
 		If Not rs.EOF Or Not rs.BOF Then			
 			Set issueList = New aspJSON
 			issueList.data.Add "maxCount", ""	
 			issueList.data.Add "list", issueList.Collection()
 			Do Until rs.EOF Or rs.BOF		
 				Set row = issueList.AddToCollection (issueList.data ("list"))
-				row.add "page", CStr(rs("page"))
-				row.add "PAGE_IDX", CStr(rs("PAGE_IDX"))
-				row.add "project", CStr(rs("project"))
-				row.add "idx", CStr(rs("idx"))
-				row.add "perfection", CStr(rs("perfection"))
-				row.add "state", CStr(rs("state"))	
-				row.add "title", CStr(rs("title"))
-				row.add "targetDate", CStr(rs("targetDate"))
-				row.add "endDate", CStr(rs("endDate"))
-				row.add "created", CStr(rs("created"))
-				row.add "updated", CStr(rs("updated"))
-				row.add "createId", CStr(rs("createId"))
-				row.add "createName", CStr(rs("createName"))
-				row.add "updateId", CStr(rs("updateId"))
-				row.add "updateName", CStr(rs("updateName"))				
+				row.add "page", CStrN(rs("page"))
+				row.add "PAGE_IDX", CStrN(rs("PAGE_IDX"))
+				row.add "project", CStrN(rs("project"))
+				row.add "partName", CStrN(rs("partName"))
+				row.add "idx", CStrN(rs("idx"))
+				row.add "perfection", CStrN(rs("perfection"))
+				row.add "state", CStrN(rs("state"))	
+				row.add "title", CStrN(rs("title"))
+				row.add "targetDate", CStrN(rs("targetDate"))
+				row.add "endDate", CStrN(rs("endDate"))
+				row.add "created", CStrN(rs("created"))
+				row.add "updated", CStrN(rs("updated"))
+				row.add "createId", CStrN(rs("createId"))
+				row.add "createName", CStrN(rs("createName"))
+				row.add "updateId", CStrN(rs("updateId"))
+				row.add "updateName", CStrN(rs("updateName"))				
 				
 				issueList.data("maxCount") = rs("MAX_COUNT")
 				rs.movenext()
@@ -60,10 +62,11 @@
 		startDate = textFilter(Request("startDate"))
 		endDate = textFilter(Request("endDate"))
 
-        ReDim param(2)
+        ReDim param(3)
 		param(0) = DBHelper.MakeParam("@startDate", adVarChar, adParamInput, 8, startDate)
 		param(1) = DBHelper.MakeParam("@endDate", adVarChar, adParamInput, 8, endDate)
-		param(2) = DBHelper.MakeParam("@project", adVarChar, adParamInput, 10, project)
+		param(2) = DBHelper.MakeParam("@project", adInteger, adParamInput, -1, project)
+		param(3) = DBHelper.MakeParam("@userId", adVarChar, adParamInput, 50, User.data("userId"))
 		Set rs = DBHelper.ExecSPReturnRS("getIssueTotal", param, Nothing)
 
 		If Not rs.EOF And Not rs.BOF Then		
@@ -94,21 +97,20 @@
 		part = textFilter(Request("part"))
 		title = textFilter(Request("title"))
 		contents = textFilter(Request("contents"))
-		userId = User.data("userId")
 		state = textFilter(Request("state"))
 		targetDate = textFilter(Request("targetDate"))
 		isEnabled = textFilter(Request("isEnabled"))
 		userList = textFilter(Request("userList"))
 
 		ReDim param(7)
-		param(0) = DBHelper.MakeParam("@project", adVarChar, adParamInput, 10, project)
-		param(1) = DBHelper.MakeParam("@part", adVarChar, adParamInput, 10, part)
-		param(2) = DBHelper.MakeParam("@title", adVarChar, adParamInput, 50, title)
+		param(0) = DBHelper.MakeParam("@project", adInteger, adParamInput, -1, project)
+		param(1) = DBHelper.MakeParam("@part", adInteger, adParamInput, -1, part)
+		param(2) = DBHelper.MakeParam("@title", adVarChar, adParamInput, 200, title)
 		param(3) = DBHelper.MakeParam("@contents", adVarChar, adParamInput, -1, contents)
-		param(4) = DBHelper.MakeParam("@userId", adVarChar, adParamInput, 50, userId)
-		param(5) = DBHelper.MakeParam("@state", adVarChar, adParamInput, 10, state)
+		param(4) = DBHelper.MakeParam("@userId", adVarChar, adParamInput, 50, User.data("userId"))
+		param(5) = DBHelper.MakeParam("@state", adInteger, adParamInput, -1, state)
 		param(6) = DBHelper.MakeParam("@targetDate", adVarChar, adParamInput, 10, targetDate)
-		param(7) = DBHelper.MakeParam("@isEnabled", adVarChar, adParamInput, 1, isEnabled)
+		param(7) = DBHelper.MakeParam("@isEnabled", adInteger, adParamInput, -1, isEnabled)
 		Set rs = DBHelper.ExecSPReturnRS("insertIssue", param, Nothing)
 
 		If Not rs.EOF And Not rs.BOF Then
@@ -122,7 +124,7 @@
 				For Each i In temp.data("list")
 					ReDim param(1)
 					param(0) = DBHelper.MakeParam("@issue", adVarChar, adParamInput, 10, rs("idx"))
-					param(1) = DBHelper.MakeParam("@user", adVarChar, adParamInput, 10, temp.data("list").item(i))
+					param(1) = DBHelper.MakeParam("@userId", adVarChar, adParamInput, 10, temp.data("list").item(i))
 					DBHelper.ExecSP "setIssueUser", param, Nothing
 				Next
 			End If
@@ -153,7 +155,7 @@
 		ReDim param(8)
 		param(0) = DBHelper.MakeParam("@idx", adVarChar, adParamInput, 10, idx)
 		param(1) = DBHelper.MakeParam("@part", adVarChar, adParamInput, 10, part)
-		param(2) = DBHelper.MakeParam("@title", adVarChar, adParamInput, 50, title)
+		param(2) = DBHelper.MakeParam("@title", adVarChar, adParamInput, 200, title)
 		param(3) = DBHelper.MakeParam("@contents", adVarChar, adParamInput, -1, contents)
 		param(4) = DBHelper.MakeParam("@userId", adVarChar, adParamInput, 50, userId)
 		param(5) = DBHelper.MakeParam("@state", adVarChar, adParamInput, 10, state)
@@ -190,23 +192,24 @@
 	ElseIf ROLE = "removeIssue" Then
 		idx = textFilter(Request("idx"))
 
-		ReDim param(0)
+		ReDim param(1)
 		param(0) = DBHelper.MakeParam("@idx", adVarChar, adParamInput, 10, idx)
-		DBHelper.ExecSP "removeIssue", param, Nothing
+		param(1) = DBHelper.MakeParam("@userId", adVarChar, adParamInput, 50, User.data("userId"))
+		Set rs = DBHelper.ExecSPReturnRS("removeIssue", param, Nothing)
 
-		res.data("state") = "true"
-		res.data("code") = "00"
-		res.data("message") = "삭제되었습니다."
+		res.data("state") = rs("state")
+		res.data("code") = rs("code")
+		res.data("message") = rs("message")
 		Response.Write res.JSONoutput()
 
-	ElseIf ROLE = "getIssueDetail" Then
+	ElseIf ROLE = "getIssue" Then
 		idx = textFilter(Request("idx"))
 		project = textFilter(Request("project"))
 
 		ReDim param(1)
 		param(0) = DBHelper.MakeParam("@idx", adInteger, adParamInput, -1, idx)
 		param(1) = DBHelper.MakeParam("@project", adInteger, adParamInput, -1, project)
-		Set rsDetail = DBHelper.ExecSPReturnRS("getIssueDetail", param, Nothing)
+		Set rsDetail = DBHelper.ExecSPReturnRS("getIssue", param, Nothing)
 
 		ReDim param(0)
 		param(0) = DBHelper.MakeParam("@idx", adInteger, adParamInput, -1, idx)
@@ -215,9 +218,9 @@
 		ReDim param(1)
 		param(0) = DBHelper.MakeParam("@parentTable", adVarchar, adParamInput, 50, "Issue")
 		param(1) = DBHelper.MakeParam("@parent", adVarchar, adParamInput, 10, idx)
-		Set rsFile = DBHelper.ExecSPReturnRS("getFileList", param, Nothing)
+		Set rsFile = DBHelper.ExecSPReturnRS("getFiles", param, Nothing)
 
-		If Not rsDetail.EOF And Not rsDetail.BOF And Not rsUser.EOF And Not rsUser.BOF Then
+		If Not rsDetail.EOF And Not rsDetail.BOF Then
 			Set view = New aspJSON
 			view.data.Add "idx", rsDetail("idx")
 			view.data.Add "partId", rsDetail("partId")
@@ -240,27 +243,29 @@
 			view.data.Add "isEnabled", rsDetail("isEnabled")
 			view.data.Add "users", view.Collection()
 			Do Until rsUser.EOF OR rsUser.BOF
-				If rsUser("part") = "0" Then
+				If IsNull(rsUser("part")) Then
 					Exit Do
+				Else
+					Set row = view.AddToCollection (view.data ("users"))
+					row.add "part", CStrN(rsUser("part"))
+					row.add "id", CStrN(rsUser("id"))
+					row.add "name", CStrN(rsUser("name"))
+					row.add "class", CStrN(rsUser("class"))
 				End If
-				Set row = view.AddToCollection (view.data ("users"))
-				row.add "part", CStr(rsUser("part"))
-				row.add "id", CStr(rsUser("id"))
-				row.add "name", CStr(rsUser("name"))
-				row.add "class", CStr(rsUser("class"))
 				rsUser.movenext()
 			Loop
 			view.data.Add "files", view.Collection()
 			Do Until rsFile.EOF OR rsFile.BOF
 				If rsFile("idx") = "0" Then
 					Exit Do
-				End If
-				Set row = view.AddToCollection (view.data ("files"))
-				row.add "idx", CStr(rsFile("idx"))
-				row.add "parentTable", CStr(rsFile("parentTable"))
-				row.add "parent", CStr(rsFile("parent"))
-				row.add "path", CStr(rsFile("path"))
-				row.add "name", CStr(rsFile("name"))
+				Else
+					Set row = view.AddToCollection (view.data ("files"))
+					row.add "idx", CStrN(rsFile("idx"))
+					row.add "parentTable", CStrN(rsFile("parentTable"))
+					row.add "parent", CStrN(rsFile("parent"))
+					row.add "path", CStrN(rsFile("path"))
+					row.add "name", CStrN(rsFile("name"))
+				End If				
 				rsFile.movenext()
 			Loop
 

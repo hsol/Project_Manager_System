@@ -47,6 +47,16 @@
 		Response.AddHeader "Content-Transfer-Encoding", "binary"
 		Response.AddHeader "Pragma", "no-cache"
 		Response.AddHeader "Expires", "0"
+			
+		' Stream 선언
+		Set objStream = Server.CreateObject("ADODB.Stream")
+		objStream.Open
+		objStream.Type = 1
+		objStream.LoadFromFile file
+		strFile = objStream.Read
+		Response.BinaryWrite strFile
+		Set objStream = Nothing
+
 	ElseIf ROLE = "upload" Then
 		Set uploadForm = Server.CreateObject ("SiteGalaxyUpload.Form")
 		Set fso = Server.CreateObject("Scripting.FileSystemObject")
@@ -58,11 +68,13 @@
 		ip = User.data("userIp")
 
 		If path = "" Then
-			path = "\resources\upload"
+			path = "\resources\upload\"
 		End If
 		If name = "" Then
 			name = fso.GetFileName(uploadForm("FILE").FilePath)
 		End If
+
+		name = addAtLastOfFilePath(name, "_"&getNow())
 
 		If parentTable = "" Or parent = "" Then
 			res.data("state") = "false"
@@ -71,6 +83,8 @@
 			Response.Write res.JSONoutput()
 			Response.End()
 		End If
+
+		uploadForm("FILE").SaveAs(server.mappath(path) & "\" & name)
 
 		ReDim param(4)
 		param(0) = DBHelper.MakeParam("@parentTable", adVarChar, adParamInput, 50, parentTable)
@@ -81,8 +95,7 @@
 
 		Set rs = DBHelper.ExecSPReturnRS("setFile", param, Nothing)
 
-		If Not rs.EOF And Not rs.BOF Then
-
+		If Not rs.EOF And Not rs.BOF Then			
 			res.data("idx") = rs("idx")
 			res.data("name") = rs("name")
 			res.data("state") = rs("state")

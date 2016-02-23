@@ -9,16 +9,19 @@
         url: URL,
         contentType: "application/json;",
         success: function (data) {
-            var responseData = JSON.parse(data);
+            var responseData = JSON.parse(data)
             if (responseData.isLogin != null) {
+                api.user = responseData;
                 if (api.convert.stringToBoolean(responseData.isLogin)) {
-                    api.user = responseData;
-
                     // UI 변경 스크립트
                     api.add.class(accountDOM.querySelector(".log .in"), "hidden");
                     api.add.class(accountDOM.querySelector(".form"), "hidden");
                     api.remove.class(accountDOM.querySelector(".mypage"), "hidden");
-                    api.remove.class(document.querySelector("#aside li.mypage"), "hidden");
+                    if(api.el.aside) {
+                        api.remove.class(api.el.aside.querySelector("li.mypage"), "hidden");
+                        api.remove.class(api.el.aside.querySelector("li.project_list"), "hidden");
+                        api.remove.class(api.el.aside.querySelector("li.issue_list"), "hidden");
+                    }
                     api.remove.class(accountDOM.querySelector(".log .out"), "hidden");
                     api.el.header.setAttribute("isLogin", "true");
 
@@ -50,7 +53,11 @@
                     api.remove.class(accountDOM.querySelector(".log .in"), "hidden");
                     api.remove.class(accountDOM.querySelector(".form"), "hidden");
                     api.add.class(accountDOM.querySelector(".mypage"), "hidden");
-                    api.add.class(document.querySelector("#aside li.mypage"), "hidden");
+                    if(api.el.aside) {
+                        api.add.class(api.el.aside.querySelector("li.project_list"), "hidden");
+                        api.add.class(api.el.aside.querySelector("li.issue_list"), "hidden");
+                        api.add.class(api.el.aside.querySelector("li.mypage"), "hidden");
+                    }
                     api.add.class(accountDOM.querySelector(".log .out"), "hidden");
                     api.el.header.setAttribute("isLogin", "false");
 

@@ -21,6 +21,7 @@
 }
 #article #projectView .perfection th{
     position:relative;
+    padding-bottom:10px;
 }
 #article #projectView .perfection .percent{
     background-color:#2ecc71;
@@ -123,7 +124,7 @@
     padding-top:10px;
     padding-left:20px;
     padding-right:20px;
-    padding-bottom:10px;
+    padding-bottom:30px;
     text-align:left;
 
     white-space:pre-line;

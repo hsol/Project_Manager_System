@@ -4,6 +4,8 @@
     }else{
         window.onload = function(){
             api.parent = root;
+            api.io = {};
+
             api.get.html("/templates/header_default.html", function(header){
                 api.get.script("/resources/scripts/actions/header_default.js");
                 api.get.style("/resources/styles/interfaces/header_default.css");

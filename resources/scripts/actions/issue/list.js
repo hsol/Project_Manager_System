@@ -28,11 +28,13 @@
     });
 
     param = {
-        role: "getIssueList",
+        role: "getIssues",
         project: location.href.getValueByKey("project") ? location.href.getValueByKey("project") : "",
         PAGE: api.const.page,
         RFP: location.href.getValueByKey("rfp") ? location.href.getValueByKey("rfp") : api.const.rfp,
-        orderBy: location.href.getValueByKey("orderBy") ? location.href.getValueByKey("orderBy") : ""
+        orderBy: location.href.getValueByKey("orderBy") ? location.href.getValueByKey("orderBy") : "",
+        sString: "",
+        sType: ""
     };
     api.ajax({
         type: "GET",
@@ -49,7 +51,12 @@
                 issues.innerHTML = null;
                 for (var i in responseData.list) {
                     responseData.list[i].orderBy = param.orderBy == "" ? "" : "&orderBy=" + param.orderBy;
-                    responseData.list[i].isended = responseData.list[i].endDate == "1900-01-01" ? "　" : "end";
+                    if(responseData.list[i].endDate == "1900-01-01") {
+                        responseData.list[i].isended = "";
+                        responseData.list[i].endDate = "";
+                    }else{
+                        responseData.list[i].isended = "end";
+                    }
                     issues.innerHTML += convertTemplate.from(innerHTML, responseData.list[i]);
                 }
                 api.printPaging(document.querySelector(".pagination"),api.const.page, responseData.maxCount);

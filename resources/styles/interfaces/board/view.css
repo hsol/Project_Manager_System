@@ -1,0 +1,131 @@
+#article{
+
+}
+#article #boardView{
+    position:relative;
+}
+#article #boardView table{
+    width:100%;
+
+    margin-top:1em;
+    border:1px solid #ccc;
+    border-collapse: collapse;
+}
+#article #boardView table th,
+#article #boardView table td{
+    text-align:center;
+}
+#article #boardView .perfection th{
+    position:relative;
+    padding-bottom:10px;
+}
+#article #boardView .perfection .percent{
+    background-color:#2ecc71;
+    position:absolute;
+    height:18px;
+    z-index:0;
+    transition-duration:0.3s;
+}
+#article #boardView .perfection span{
+    position:relative;
+    z-index:1;
+}
+
+#article #boardView .data th,
+#article #boardView .data td{
+    padding:5px;
+    border:1px solid #f5f5f5;
+    border-top:0;
+    border-left:0;
+    border-right:0;
+}
+#article #boardView .issueCount{
+    position:absolute;
+    top:10px;
+    right:0;
+    display:inline-block;
+    text-align:center;
+}
+#article #boardView #issue_users{
+    padding-right:20px;
+}
+#article #boardView #issue_users input[type=button]{
+    height:30px;
+    line-height:30px;
+}
+#article #boardView #issue_users .selected{
+    text-align: left;
+    list-style:none;
+    margin-top:5px;
+
+    width:100%;
+    min-height:30px;
+    padding:5px;
+
+    border:1px solid #d5d5d5;
+}
+
+#article #boardView #issue_users .selected li{
+    margin:5px;
+    display:inline-block;
+    list-style:none;
+    background-color:#2f2f30;
+    color:#ffffff;
+    padding:5px 10px 5px 10px;
+}
+#article #boardView #issue_users .selected li span.delete{
+    display:inline-block;
+    height:100%;
+    width:14px;
+    text-align:center;
+}
+#article #boardView #issue_users .selected li span.delete:hover{
+    cursor:pointer;
+}
+
+#article #boardView #files{
+    padding-right:20px;
+}
+#article #boardView #files ul{
+    list-style:none;
+
+    width:100%;
+    min-height:30px;
+
+    border:1px solid #ccc;
+}
+
+#article #boardView #files ul li{
+    text-align:left;
+    list-style:none;
+    background-color:#ffffff;
+    padding:5px;
+}
+#article #boardView #files ul li:hover{
+    background-color:#f5f5f5;
+}
+#article #boardView #files ul li a.name{
+    vertical-align: top;
+}
+#article #boardView #files ul li a.down{
+    display:inline-block;
+    vertical-align: top;
+    margin-right:10px;
+    width:20px;
+    height:20px;
+    background-image:url('/resources/images/ic_download.png');
+    background-repeat:no-repeat;
+    background-position:center center;
+    text-align:center;
+    border:1px solid #d5d5d5;
+}
+
+#article #boardView .description{
+    padding-top:10px;
+    padding-left:20px;
+    padding-right:20px;
+    padding-bottom:30px;
+    text-align:left;
+
+    white-space:pre-line;
+}

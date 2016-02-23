@@ -37,6 +37,7 @@
 #article #projectList .projects .project .perfection{
     position:relative;
     text-align:center;
+    margin-bottom: 5px;
 }
 #article #projectList .projects .project .perfection .percent{
     display:block;

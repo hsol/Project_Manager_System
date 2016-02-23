@@ -38,6 +38,7 @@
 #article #issueList .issues .issue .perfection{
     position:relative;
     text-align:center;
+    margin-bottom: 5px;
 }
 #article #issueList .issues .issue .perfection .percent{
     display:block;
@@ -78,10 +79,52 @@
     border:1px solid #ccc;
 }
 
+#article #issueList .wrap .searchBox {
+    display:inline-block;
+    vertical-align: top;
+    height:2.5em;
+    padding-left:5px;
+    padding-right:5px;
+}
+
+#article #issueList .wrap .searchBox .searchBase{
+    height:100%;
+}
+
+#article #issueList .wrap .searchBox .searchText{
+    height:100%;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    padding-left:5px;
+    padding-right:5px;
+}
+
 @media only screen and (max-width: 500px) {
     #article #issueList .issues .issue table.data td.state{ width:5%; }
     #article #issueList .issues .issue table.data td.name{ width:30%; }
     #article #issueList .issues .issue table.data td.created{ width:25%; }
     #article #issueList .issues .issue table.data td.createName{ width:15%; }
     #article #issueList .issues .issue table.data td.targetDate{ width:25%; }
+
+    #article #issueList .wrap .searchBox {
+        display:block;
+        width:100%;
+        vertical-align: top;
+        height: 2.5em;
+        padding:0 0 5px 0;
+    }
+
+    #article #issueList .wrap .searchBox .searchBase{
+        vertical-align: top;
+        height:100%;
+    }
+
+    #article #issueList .wrap .searchBox .searchText{
+        height:100%;
+        vertical-align: top;
+        background-color: #f5f5f5;
+        border: 1px solid #ccc;
+        padding-left:5px;
+        padding-right:5px;
+    }
 }

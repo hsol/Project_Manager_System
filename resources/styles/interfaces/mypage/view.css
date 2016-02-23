@@ -1,0 +1,17 @@
+body{}
+
+body #mypageView input[type=text],
+body #mypageView input[type=password]{
+    height: 30px;
+    line-height: 30px;
+    padding-left: 5px;
+}
+body #mypageView .myInfo .cards{ margin-top: 1em; }
+body #mypageView .myInfo .cards .card{ display:inline-block; width:50%; padding-left:10px; padding-right:10px;}
+body #mypageView .myInfo .info{ margin-top:1em; }
+body #mypageView .myInfo table{ width:100%; background-color:#f4f4f4; border:1px solid #d5d5d5;}
+body #mypageView .myInfo table tr th{ padding-top:5px; padding-bottom:5px;}
+body #mypageView .myInfo table tr td{ min-width:30px;}
+body #mypageView .myInfo table tr.more td{ text-align:right; padding:5px 10px 5px 5px; }
+body #mypageView .myInfo table tr.function td{ padding:5px;}
+body #mypageView .myInfo table tr.graph th canvas{ width:100% !important; }

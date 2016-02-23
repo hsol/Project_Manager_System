@@ -9,6 +9,7 @@
     font-size: 10pt;
     list-style:none;
 }
+*:active, *:hover, *:visited, *:focus{outline:none;}
 
 html {
     width: auto;
@@ -23,6 +24,9 @@ body a {
     text-decoration: none;
     color: #000;
     cursor:pointer;
+}
+body img{
+    max-width: 98%;
 }
 
 body .template,
@@ -51,7 +55,7 @@ body .popup_back{
     left:0;
     width:100%;
     height:100%;
-    z-index:99;
+    z-index:120;
     opacity: 0.8;
     background-color:#2f2f30;
 }
@@ -61,7 +65,7 @@ body .popup{
     min-width:100px;
     min-height:100px;
     border:1px solid #ccc;
-    z-index:100;
+    z-index:121;
 }
 body .popup .head{
     height:40px;
@@ -152,17 +156,50 @@ body #replyList{
     padding:10px;
     height:auto;
 }
-body #replyList li.reply .name,
-body #replyList li.reply .contents{
-    display:inline-block;
+body #replyList .head,
+body #replyList .body{
+    width:100%;
 }
-body #replyList li.reply .name{
+body #replyList li.reply .user{
     font-weight:bold;
 }
-body #replyList li.reply .name span{
+body #replyList li.reply .user .id{
     font-weight:normal;
 }
+body #replyList li.reply .menu .modify:hover,
+body #replyList li.reply .menu .delete:hover{
+    font-weight:bold;
+    cursor:pointer;
+}
+body #replyList li.reply .modify{
+    width:100%;
+    position:relative;
+}
+body #replyList li.reply .modify input[type=text]{
+    width:100%;
+    height: 30px;
+    line-height:30px;
+    padding:5px;
+    padding-right: 105px;
+    border:1px solid #ccc;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+body #replyList li.reply .modify .button{
+    position:absolute;
+    top:5px;
+    min-width:50px;
+    height:30px;
+    line-height:30px;
+}
+body #replyList li.reply .modify .button.submit{
+    right:50px;
+}
+body #replyList li.reply .modify .button.cancel{
+    right:0;
+}
 body #replyList li.reply .contents{
+    width:100%;
     white-space:pre-line;
 }
 body #replyList .moreReply{
@@ -222,6 +259,10 @@ body .button:hover{
     cursor:pointer;
     background-color:#ccc;
 }
+
+body .align-left{ text-align:left; }
+body .align-center{ text-align:center; }
+body .align-right{ text-align:right; }
 
 @media only screen and (max-width: 800px) {
     * {

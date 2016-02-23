@@ -1,7 +1,7 @@
 <div id="caption" class="hidden">이슈 목록</div>
 
 <div id="article">
-    <div id="issueList" >
+    <div id="issueList">
         <h1>이슈 목록</h1>
         <table class="summary">
             <tbody class="template">
@@ -31,17 +31,25 @@
                     <table class="data">
                         <tr>
                             <td class="state">{state}</td>
-                            <td class="title">{title}</td>
+                            <td class="title">({partName}) {title}</td>
                             <td class="created">{created}</td>
                             <td class="createName">{createName}</td>
-                            <td class="targetDate">{targetDate}</td>
+                            <td class="targetDate">{endDate}</td>
                         </tr>
                     </table>
                 </a>
             </li>
         </ul>
         <div class="wrap">
-            <div class="panel_button">
+            <div class="searchBox">
+            <select class="searchBase" name="searchBase">
+                <option value="project">프로젝트명</option>
+                <option value="title">이슈제목</option>
+                <option value="contents">이슈내용</option>
+                <option value="user">참여인원</option>
+            </select>
+            <input type="text" class="searchText" name="searchText" value="{searchText}">
+            </div><div class="panel_button">
                 <input type="button" id="doEdit" class="button" value="등록">
             </div>
         </div>

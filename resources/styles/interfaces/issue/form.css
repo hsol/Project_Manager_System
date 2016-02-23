@@ -75,8 +75,6 @@
     background-color:#2f2f30;
     color:#ffffff;
     padding:5px 10px 5px 10px;
-
-    height:25px;
 }
 #article #issueForm #users .selected li span.delete{
     display:inline-block;
@@ -163,7 +161,8 @@
 }
 #article #issueForm .description textarea{
     width:100%;
-    min-height:5em;
+    height:100px;
+    min-height:15em;
     padding:5px;
     resize:vertical;
 }

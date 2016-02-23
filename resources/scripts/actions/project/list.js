@@ -2,7 +2,6 @@
     const projectList = document.getElementById("projectList");
     const URL = "/modules/project.asp";
     var param = {};
-
     param.role = "getProjectTotal";
     param.startDate = "";
     param.endDate = "";
@@ -26,11 +25,14 @@
         }
     });
 
-    param = {};
-    param.role = "getProjectList";
-    param.PAGE = api.const.page;
-    param.RFP = location.href.getValueByKey("rfp") ? location.href.getValueByKey("rfp") : api.const.rfp;
-    param.orderBy = location.href.getValueByKey("orderBy") ? location.href.getValueByKey("orderBy") : "";
+    param = {
+        role : "getProjects",
+        PAGE : api.const.page,
+        RFP : location.href.getValueByKey("rfp") ? location.href.getValueByKey("rfp") : api.const.rfp,
+        orderBy : location.href.getValueByKey("orderBy") ? location.href.getValueByKey("orderBy") : "",
+        sString: "",
+        sType: ""
+    };
 
     api.ajax({
         type: "GET",
@@ -47,6 +49,9 @@
                 projects.innerHTML = null;
                 for (var i in responseData.list) {
                     responseData.list[i].orderBy = param.orderBy == "" ? "" : "&orderBy=" + param.orderBy;
+                    if(responseData.list[i].endDate == "1900-01-01")
+                        responseData.list[i].endDate = "";
+
                     projects.innerHTML += convertTemplate.from(innerHTML, responseData.list[i]);
                 }
             }
@@ -59,6 +64,8 @@
                 };
                 location.href = "/project/?" + api.convert.objectToParameter(param);
             });
+
+            api.printPaging(document.querySelector(".pagination"),api.const.page, responseData.maxCount);
         }
     });
 })(this);

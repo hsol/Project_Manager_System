@@ -1,4 +1,20 @@
 <li class="reply">
-    <div class="name">{name}(<span>{id}</span>)</div>
-    <div class="contents">{contents}</div>
+    <div class="head">
+        <span class="user">
+            <span class="name">{name}</span>
+        (<span class="id">{id}</span>)
+        </span>
+        <span class="menu">
+            <span class="modify">수정</span>
+            <span class="delete">삭제</span>
+        </span>
+    </div>
+    <div class="body">
+        <div class="modify hidden" data-idx="{idx}">
+            <input type="text" value="{contents}">
+            <input type="button" class="button submit" value="수정">
+            <input type="button" class="button cancel" value="취소">
+        </div>
+        <div class="contents">{contents}</div>
+    </div>
 </li>

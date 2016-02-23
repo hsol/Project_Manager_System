@@ -1,6 +1,7 @@
 (function (root) {
     const URL = "/modules/issue.asp";
     const issueForm = document.getElementById("issueForm");
+    api.io = {};
 
     var backURL = null;
     var param = {};
@@ -19,10 +20,19 @@
         backURL = "/issue/list.asp?" + api.convert.objectToParameter(param);
     }
 
-    setStateList(function(){setPartList(function(){setIssueDetail();});});
+    setStateList(function(){
+        setPartList(function(){
+            setIssueDetail(function(){
+                textboxio.replace(issueForm.querySelector("[name=contents]"), api.io);
+            });
+        });
+    });
 
     function getIssueInput() {
         var issueForm = document.getElementById("issueForm");
+        var editor = textboxio.getActiveEditor();
+        issueForm.querySelector("[name=contents]").value = editor.content.get();
+
         var form = {
             project : location.href.getValueByKey("project") ? location.href.getValueByKey("project") : "",
             idx : location.href.getValueByKey("idx") ? location.href.getValueByKey("idx") : "",
@@ -46,7 +56,7 @@
     function setPartList(callback) {
         var URL = "/modules/part.asp";
         var param = {
-            role: "getPart"
+            role: "getParts"
         };
         api.ajax({
             type: "GET",
@@ -113,9 +123,9 @@
         });
     }
 
-    function setIssueDetail() {
+    function setIssueDetail(callback) {
         var param = {
-            role: "getIssueDetail",
+            role: "getIssue",
             idx: location.href.getValueByKey("idx") ? location.href.getValueByKey("idx") : "",
             project:location.href.getValueByKey("project") ? location.href.getValueByKey("project") : ""
         };
@@ -148,7 +158,7 @@
                     if (responseData.isEnabled)
                         responseData.isEnabled = responseData.isEnabled.toUpperCase() == "TRUE" ? "checked" : "";
                     else
-                        responseData.isEnabled = "";
+                        responseData.isEnabled = "checked";
 
                     if (responseData.endDate)
                         responseData.isEnded = responseData.endDate != "1900-01-01" ? "checked" : "";
@@ -260,7 +270,7 @@
                             };
                         }
 
-                        api.ajax({type: "GET", url: URL, data: param, contentType: "application/json;",
+                        api.ajax({type: "POST", url: URL, data: param, contentType: "application/json;",
                             success: function (data) {
                                 var responseData = JSON.parse(data);
                                 if (api.convert.stringToBoolean(responseData.state)) {
@@ -444,7 +454,9 @@
                 }
                 else {
                     alert(responseData.message);
+                    history.back();
                 }
+                callback();
             }
         });
     }

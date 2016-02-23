@@ -7,17 +7,17 @@
 	
 	Dim param
 
-	If ROLE = "getPart" Then
-		Set rs = DBHelper.ExecSPReturnRS("getPart", Nothing, Nothing)
+	If ROLE = "getParts" Then
+		Set rs = DBHelper.ExecSPReturnRS("getParts", Nothing, Nothing)
 
 		If Not rs.EOF AND Not rs.BOF Then
 			Set part = New aspJSON
 			part.data.Add "list", part.Collection()
 			Do Until rs.EOF OR rs.BOF
 				Set row = part.AddToCollection (part.data ("list"))
-				row.add "idx", CStr(rs("idx"))
-				row.add "name", CStr(rs("name"))
-				row.add "description", CStr(rs("description"))
+				row.add "idx", CStrN(rs("idx"))
+				row.add "name", CStrN(rs("name"))
+				row.add "description", CStrN(rs("description"))
 				rs.movenext()
 			Loop
 			Response.Write part.JSONoutput()

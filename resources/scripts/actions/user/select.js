@@ -70,10 +70,12 @@
                         userList.appendChild(temp.childNodes[1]);
                     }
 
-                    if(responseData.maxCount <= api.const.rfp*param.page)
-                        api.remove.el(userPopup.querySelector(".moreUser"));
-                    else
-                        userPopup.querySelector(".moreUser").setAttribute("data-page", param.page);
+                    if( userPopup.querySelector(".moreUser")) {
+                        if (responseData.maxCount <= api.const.rfp * param.page)
+                            api.remove.el(userPopup.querySelector(".moreUser"));
+                        else
+                            userPopup.querySelector(".moreUser").setAttribute("data-page", param.page);
+                    }
                 }
                 else {
                     alert(responseData.message);
@@ -84,6 +86,8 @@
     loadUserList(URL, param);
 
     api.set.event("#userSearch", "click", function(e){
+        userList.innerHTML = "";
+
         param = {
             role : "getUserList",
             rfp : api.const.rfp,
@@ -102,16 +106,6 @@
             sString : userPopup.querySelector(".aside .search input[name=sString]").value
         };
         param.page = parseInt(param.page) + 1;
-        loadUserList(URL, param);
-    });
-
-    api.set.event("#userSearch", "click", function(e){
-        param = {
-            role : "getUserList",
-            rfp : api.const.rfp,
-            sType : userPopup.querySelector(".aside .search select[name=sType]").value,
-            sString : userPopup.querySelector(".aside .search input[name=sString]").value
-        };
         loadUserList(URL, param);
     });
 

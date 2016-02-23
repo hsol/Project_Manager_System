@@ -1,7 +1,8 @@
 (function (root) {
     root.api = {
         _parent: root,
-        _user: {},
+        _loginUser: {},
+        _TextboxioConfig: {},
         set parent(o) {
             this.const.page = location.href.getValueByKey("page") ? location.href.getValueByKey("page") : 1;
 
@@ -11,12 +12,62 @@
             this.el.footer = document.getElementsByTagName("footer")[0];
             this._parent = o;
         },
+        get parent() {
+            return this._parent;
+        },
         set user(u) {
-            this._user = u;
+            this._loginUser = u;
+        },
+        get user() {
+            var base = {
+                isLogin: "false",
+                userClass: null,
+                userId: null,
+                userIp: null,
+                userName: "Guest",
+                userPart: null
+            };
+            return api.extend(base, this._loginUser);
+        },
+        set io(option) {
+            var base = {
+                images: {
+                    upload: {
+                        url: "/modules/textboxio.asp",
+                        basePath: "/resources/upload/textboxio/",
+                        allowLocal: true,
+                        credentials: false
+                    }
+                },
+                ui: {
+                    fonts: ['맑은고딕', '돋움', '돋움체', '바탕', '바탕체', '궁서', '궁서체', 'Comic Sans MS', 'sans-serif', 'Helvetica', 'Arial'],
+                    toolbar: {
+                        items: ["insert", "format", "emphasis", "align", "listindent",
+                            {
+                                label: "tools",
+                                items: ['find', 'fullscreen']
+                            }
+                        ]
+                    }
+                }
+            };
+            option = api.extend(base, option);
+            this._TextboxioConfig = option;
+        },
+        get io() {
+            return this._TextboxioConfig;
         },
         const: {
-            rfp: 8,
-            page : 1
+            rowForPage: 8,
+            get rfp(){
+                return this.rowForPage;
+            },
+            set rfp(rowForPage){
+                this.rowForPage = rowForPage;
+            },
+            pageForBlock: 5,
+            page: 1,
+            location : "씨엔티테크"
         },
         el: {
             header: String.EMPTY,
@@ -26,9 +77,9 @@
         },
         loadPage: function (element, directory, page) {
             api.get.html("/templates/" + directory + "/" + page + ".html", function (article) {
+                api.el.article.innerHTML = article;
                 api.get.script("/resources/scripts/actions/" + directory + "/" + page + ".js");
                 api.get.style("/resources/styles/interfaces/" + directory + "/" + page + ".css");
-                api.el.article.innerHTML = article;
             });
         },
         console: {
@@ -41,12 +92,8 @@
                  *
                  * @return string message 완성된 메세지
                  */
+                var caller = caller ? caller : "";
                 var time = new Date();
-                if (caller != null) {
-                    caller += " ";
-                } else {
-                    var caller = "";
-                }
 
                 message = "[" + caller + time.getHours() + ":"
                     + time.getMinutes() + ":" + time.getSeconds() + "] "
@@ -80,7 +127,7 @@
             }
         },
         upload: function (option) {
-            var basic = {
+            var base = {
                 parentTable: null,
                 parent: null,
                 file: null,
@@ -88,7 +135,7 @@
                 success: function () {
                 }
             };
-            option = api.extend(basic, option);
+            option = api.extend(base, option);
 
             var div = document.createElement("div")
                 , childFrame = document.createElement("iframe")
@@ -153,7 +200,8 @@
             });
             form.submit();
 
-            return div;
+            delete div;
+            return true;
         },
         ajax: function (option) {
             /* jQuery 를 쓰지 않아 임시로 구현해놓은 ajax 입니다. */
@@ -168,7 +216,7 @@
                 return;
             }
 
-            var basic = {
+            var base = {
                 url: null,
                 type: "GET",
                 data: null,
@@ -176,13 +224,13 @@
                 debugLog: false,
                 success: null,
                 fail: function (readyState, status, statusText) {
-                    if (basic.debugLog)
+                    if (base.debugLog)
                         console.error("Fail> state:"
                             + readyState + " status:" + status + " message"
                             + statusText);
                 }
             };
-            option = api.extend(basic, option);
+            option = api.extend(base, option);
             option.type = (option.type).toUpperCase();
 
             xmlHttp.onreadystatechange = function () {
@@ -298,7 +346,7 @@
             var ul = document.createElement("ul");
             var func = [];
 
-            if(page.length > 1) {
+            if (page.length > 1) {
                 for (var idx in page) {
                     var li = document.createElement("li");
                     var a = document.createElement("a");
@@ -367,13 +415,13 @@
                 pageList.push(temp);
             }
 
-            var scope = currentPage % api.const.rfp;
+            var scope = currentPage % api.const.pageForBlock;
             if (scope == 0) {
-                prev = api.const.rfp - 1;
+                prev = api.const.pageForBlock - 1;
                 next = 0;
             } else {
                 prev = scope - 1;
-                next = api.const.rfp - scope;
+                next = api.const.pageForBlock - scope;
             }
 
             /* 이전 페이지 및 이전버튼 리스트에 추가 */
@@ -384,7 +432,7 @@
                     pageList.unshift(temp);
                 }
 
-                if (currentPage > api.const.rfp) {
+                if (currentPage > api.const.pageForBlock) {
                     temp = api.copy(page);
                     temp.text = "이전페이지";
                     temp.prev = true;
@@ -417,6 +465,17 @@
         },
         has: {
             class: function (element, name) {
+                /**
+                 * api.has.class(object, string)
+                 * element에 클래스 존재 확인
+                 * jQuery의 $.hasClass 구현.
+                 *
+                 *
+                 * @param object element 확인 당할 element
+                 * @param string name 확인 될 클래스
+                 *
+                 * @return object element
+                 */
                 if (element.getAttribute("class")) {
                     if (element.getAttribute("class").indexOf(name) >= 0) {
                         return true;
@@ -471,14 +530,44 @@
                 return element;
             },
             el: function (element) {
+                /**
+                 * api.remove.el(object)
+                 * element 삭제
+                 * jQuery의 $.remove 구현.
+                 *
+                 *
+                 * @param object element 삭제 당할 element
+                 *
+                 * @return
+                 */
                 if (element) {
                     if (element.parentNode)
                         element.parentNode.removeChild(element);
-                } else {
+                    return true;
                 }
+                return false;
             }
         },
         get: {
+            chart: function (target, data, option) {
+                if (Chart) {
+                    var base = {
+                        responsive: true,
+                        maintainAspectRatio: true
+                    };
+                    option = api.extend(base, option);
+                    var canvas = document.createElement("canvas");
+                    canvas.className = "chart";
+                    target.appendChild(canvas);
+                    canvas = target.querySelector(".chart");
+                    canvas.className = "";
+                    canvas = canvas.getContext("2d");
+                    new Chart(canvas).Pie(data, option);
+                } else {
+                    api.console.error("Chart 라이브러리가 존재하지 않습니다.");
+                    return false;
+                }
+            },
             script: function (url, callback) {
                 /**
                  * api.get.script(string, function)
@@ -519,6 +608,14 @@
                 return true;
             },
             html: function (src, loadAfter) {
+                /**
+                 * api.get.html(string)
+                 * html 로드
+                 *
+                 * @param string src 로딩할 html의 주소
+                 *
+                 * @return string 로딩된 html contents
+                 */
                 var xmlHttp = new XMLHttpRequest();
                 xmlHttp.onreadystatechange = function () {
                     if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {

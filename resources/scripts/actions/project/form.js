@@ -17,10 +17,17 @@
         backURL = "/project/list.asp?" + api.convert.objectToParameter(param);
     }
 
-    setStateList(function(){setProjectDetail();});
+    setStateList(function(){
+        setProjectDetail(function(){
+            textboxio.replace(projectForm.querySelector("[name=description]"), api.io);
+        });
+    });
 
     function getProjectInput() {
         var projectForm = document.getElementById("projectForm");
+        var editor = textboxio.getActiveEditor();
+        projectForm.querySelector("[name=description]").value = editor.content.get();
+
         var form = {
             idx: location.href.getValueByKey("idx") ? location.href.getValueByKey("idx") : "",
             name: projectForm.querySelector("[name=name]").value,
@@ -77,9 +84,9 @@
         });
     }
 
-    function setProjectDetail() {
+    function setProjectDetail(callback) {
         var param = {
-            role: "getProjectDetail",
+            role: "getProject",
             idx: location.href.getValueByKey("idx") ? location.href.getValueByKey("idx") : ""
         };
         api.ajax({
@@ -90,7 +97,7 @@
                 if (responseData.state) {
                     var innerHTML = projectForm.innerHTML.replace(RegExp("template", "gi"), "");
                     var users = null;
-                    var isExist = location.href.getValueByKey("idx") != null;
+                    var isExist = location.href.getValueByKey("idx") != "";
 
                     projectForm.innerHTML = null;
                     if (isExist) {
@@ -105,11 +112,10 @@
                         responseData.perfection = 0;
                         responseData.description = "";
                     }
-
                     if (responseData.isEnabled)
                         responseData.isEnabled = responseData.isEnabled.toUpperCase() == "TRUE" ? "checked" : "";
                     else
-                        responseData.isEnabled = "　";
+                        responseData.isEnabled = "checked";
 
                     if (responseData.endDate)
                         responseData.isEnded = responseData.endDate != "1900-01-01" ? "checked" : "";
@@ -404,7 +410,9 @@
                 }
                 else {
                     alert(responseData.message);
+                    history.back();
                 }
+                callback();
             }
         });
     }

@@ -12,7 +12,7 @@
 		sType = textFilter(Request("sType"))
 
 		ReDim param(3)
-		param(0) = DBHelper.MakeParam("@PAGE", adInteger, adParamInput, -1, PAGE)		
+		param(0) = DBHelper.MakeParam("@PAGE", adInteger, adParamInput, -1, PAGE)
 		param(1) = DBHelper.MakeParam("@RFP", adInteger, adParamInput, -1, RFP)
 		param(2) = DBHelper.MakeParam("@sString", adVarChar, adParamInput, 100, sString)
 		param(3) = DBHelper.MakeParam("@sType", adVarChar, adParamInput, 50, sType)
@@ -39,6 +39,47 @@
 			res.data("message") = "서버가 응답하지 않습니다."
 			Response.Write res.JSONoutput()
 		End If
+	ElseIf ROLE = "updateUser" Then	
+		userid = textFilter(Request("userid"))
+		password = textFilter(Request("password"))
+		name = textFilter(Request("name"))
+		duty = textFilter(Request("duty"))
+		part = textFilter(Request("part"))
+
+		If userid = "" Then
+			res.data("state") = "false"
+			res.data("code") = "01"
+			res.data("message") = "필요한 파라미터가 존재하지 않습니다."
+			Response.Write res.JSONoutput()
+			Response.End()
+		ElseIf userid <> User.data("userId") Then
+			res.data("state") = "false"
+			res.data("code") = "E4"
+			res.data("message") = "권한이 없습니다."
+			Response.Write res.JSONoutput()
+			Response.End()
+		End If
+
+		ReDim param(4)
+		param(0) = DBHelper.MakeParam("@userid", adVarChar, adParamInput, 50, userid)		
+		param(1) = DBHelper.MakeParam("@password", adVarChar, adParamInput, 100, password)
+		param(2) = DBHelper.MakeParam("@name", adVarChar, adParamInput, 100, name)
+		param(3) = DBHelper.MakeParam("@duty", adInteger, adParamInput, -1, duty)
+		param(4) = DBHelper.MakeParam("@part", adInteger, adParamInput, -1, part)
+		Set rs = DBHelper.ExecSPReturnRS("updateUser", param, Nothing)
+
+		If Not rs.EOF And Not rs.BOF Then
+			res.data("state") = rs("state")
+			res.data("code") = rs("code")
+			res.data("message") = rs("message")
+			Response.Write res.JSONoutput()
+		Else
+			res.data("state") = "false"
+			res.data("code") = "10"
+			res.data("message") = "서버가 응답하지 않습니다."
+			Response.Write res.JSONoutput()
+		End If
+
 	Else
 		Response.Write Session("userInfo")
 		Response.End()

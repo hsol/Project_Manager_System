@@ -1,0 +1,28 @@
+<div id="caption" class="hidden"></div>
+<div id="article">
+    <div id="boardList" >
+        <h1>{pageHead}</h1>
+        <table class="board">
+            <thead>
+                <th>순번</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+            </thead>
+            <tbody class="posts">
+                <tr class="template">
+                    <th>{PAGE_IDX}</th>
+                    <td>{title}</td>
+                    <td class="align-center">{createName}</td>
+                    <td class="align-center">{created}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="wrap">
+            <div class="panel_button">
+                <input type="button" id="doEdit" class="button" value="등록">
+            </div>
+        </div>
+        <div class="pagination"></div>
+    </div>
+</div>

@@ -20,6 +20,7 @@
 				User.data("userId") = rs("id")
 				User.data("userName") = rs("name")
 				User.data("userClass") = rs("class")
+				User.data("userPart") = rs("part")
 				Session("userInfo") = User.JSONoutput()
 
 				res.data("state") = "true"
@@ -33,7 +34,7 @@
 				If Not intraRs.EOF Or Not intraRs.BOF  Then
 					If intraRs("PSWD_NM") = pw Then					
 					ReDim param(5)
-						param(0) = DBHelper.MakeParam("@part", adVarChar, adParamInput, 10, "4")
+						param(0) = DBHelper.MakeParam("@part", adVarChar, adParamInput, 10, "1")
 						param(1) = DBHelper.MakeParam("@id", adVarChar, adParamInput, 50, intraRs("EmpCode"))
 						param(2) = DBHelper.MakeParam("@password", adVarChar, adParamInput,100, intraRs("PSWD_NM"))
 						param(3) = DBHelper.MakeParam("@name", adVarChar, adParamInput,100, intraRs("EmpName"))
@@ -44,7 +45,8 @@
 						User.data("isLogin") = "true"
 						User.data("userId") = intraRs("EmpCode")
 						User.data("userName") = intraRs("EmpName")
-						User.data("userClass") = intraRs("EmpCode") & "님 안녕하세요."
+						User.data("userClass") = userClass.data("user")
+						User.data("userPart") = ""
 						Session("userInfo") = User.JSONoutput()
 
 						res.data("state") = "true"
@@ -55,6 +57,7 @@
 						User.data("userId") = ""
 						User.data("userName") = ""
 						User.data("userClass") = ""
+						User.data("userPart") = ""
 						Session("userInfo") = User.JSONoutput()
 
 						res.data("state") = "false"
@@ -66,6 +69,7 @@
 					User.data("userId") = ""
 					User.data("userName") = ""
 					User.data("userClass") = ""
+					User.data("userPart") = ""
 					Session("userInfo") = User.JSONoutput()
 
 					res.data("state") = "false"

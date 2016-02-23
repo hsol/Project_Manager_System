@@ -1,6 +1,112 @@
 <div id="caption" class="hidden">마이페이지</div>
 <div id="article">
     <div id="mypageView">
-        미완성
+        <div class="myInfo">
+            <h1>마이 페이지</h1>
+            <table class="info">
+                <tbody>
+                <tr>
+                    <th colspan="2">내 정보</th>
+                </tr>
+                <tr>
+                    <th>아이디:</th>
+                    <td>{userId}</td>
+                </tr>
+                <tr>
+                    <th>이름:</th>
+                    <td>{userName}</td>
+                </tr>
+                <tr>
+                    <th>역할:</th>
+                    <td>
+                        <select name="part" id="part"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>새 비밀번호:</th>
+                    <td>
+                        <input type="password" name="password" placeholder="새로운 비밀번호">
+                    </td>
+                </tr>
+                <tr class="function">
+                    <th></th>
+                    <td class="align-right"><input type="button" id="doEdit" class="button" value="수정"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="cards">
+                <div class="card">
+                    <table class="project">
+                        <tbody>
+                        <tr class="more">
+                            <th></th>
+                            <td><a href="/project/list.asp">더보기</a></td>
+                        </tr>
+                        <tr class="graph">
+                            <th colspan="2"></th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">내 프로젝트</th>
+                        </tr>
+                        <tr>
+                            <th>전체:</th>
+                            <td>{projectTotal}</td>
+                        </tr>
+                        <tr>
+                            <th>완료:</th>
+                            <td>{projectCompleted}</td>
+                        </tr>
+                        <tr>
+                            <th>진행중:</th>
+                            <td>{projectProgress}</td>
+                        </tr>
+                        <tr>
+                            <th>중단:</th>
+                            <td>{projectTerminated}</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2"></th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div><div class="card">
+                    <table class="issue">
+                        <tbody>
+                        <tr class="more">
+                            <th></th>
+                            <td><a href="/issue/list.asp">더보기</a></td>
+                        </tr>
+                        <tr class="graph">
+                            <th colspan="2"></th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">내 이슈</th>
+                        </tr>
+                        <tr>
+                            <th>전체:</th>
+                            <td>{issueTotal}</td>
+                        </tr>
+                        <tr>
+                            <th>완료:</th>
+                            <td>{issueCompleted}</td>
+                        </tr>
+                        <tr>
+                            <th>진행중:</th>
+                            <td>{issueProgress}</td>
+                        </tr>
+                        <tr>
+                            <th>중단:</th>
+                            <td>{issueTerminated}</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2"></th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="chart">
+        </div>
     </div>
 </div>

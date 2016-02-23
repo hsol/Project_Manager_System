@@ -2,11 +2,13 @@
 <!-- #include file="aspJSON1.17.asp" -->
 <%
 	Response.charset = "utf-8"
-	Session.Codepage="65001"
+	Response.codepage="65001"
+	Response.ContentType="text/html;charset=utf-8"	
 	Response.Expires = -1
 	Response.AddHeader "Pragma","no-cache"
 	Response.AddHeader "cache-control","no-store"
 	Response.buffer=True
+	Session.Codepage="65001"
 	Session.Timeout=60
 
 	Set mainDB = New aspJSON
@@ -29,8 +31,9 @@
 	If Session("userInfo") = "" Then
 		User.data.add "isLogin", "false"
 		User.data.add "userId", ""
-		User.data.add "userName", ""
+		User.data.add "userName", "Guest"
 		User.data.add "userClass", ""
+		User.data.add "userPart", ""
 		User.data.add "userIp", Request.ServerVariables("REMOTE_ADDR")
 		Session("userInfo") = User.JSONoutput()
 		Response.Redirect(getPath())
